@@ -3,7 +3,7 @@ particlesJS("particles-js",
   {
     "particles": {
       "number": {
-        "value": 120,
+        "value": 150,
         "density": {
           "enable": true,
           "value_area": 800
@@ -20,7 +20,7 @@ particlesJS("particles-js",
         },
       },
       "opacity": {
-        "value": 0.5,
+        "value": 0.6,
         "random": true,
         "anim": {
           "enable": false,
@@ -42,7 +42,7 @@ particlesJS("particles-js",
       },
       "move": {
         "enable": true,
-        "speed": 4,
+        "speed": 3,
         "direction": "none",
         "random": false,
         "straight": false,
@@ -77,19 +77,61 @@ particlesJS("particles-js",
   }
 );
 
-// Initialize Three.js for 3D Logo
-let scene, camera, renderer, logo;
+// Initialize Lottie Animation for the Logo
+const logoContainer = document.getElementById('logo-container');
+const logoAnimation = lottie.loadAnimation({
+    container: logoContainer,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'assets/logo.json' // Path to your Lottie JSON file
+});
+
+// GSAP Animations for Social Buttons
+const socialButtons = document.querySelectorAll('.social-button');
+
+socialButtons.forEach(button => {
+    // Fly-in Animation
+    gsap.from(button, {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 1,
+        ease: "back.out(1.7)"
+    });
+
+    // Hover Animation
+    button.addEventListener('mouseenter', () => {
+        gsap.to(button, {
+            scale: 1.2,
+            rotation: 10,
+            duration: 0.3,
+            ease: "power1.out"
+        });
+    });
+
+    button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.3,
+            ease: "power1.out"
+        });
+    });
+});
+
+// 3D Logo with Three.js (Alternative to Lottie if preferred)
+let scene, camera, renderer, model;
 
 function initThreeJS() {
-    const container = document.getElementById('logo-container');
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(45, logoContainer.clientWidth / logoContainer.clientHeight, 0.1, 1000);
     camera.position.z = 5;
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
+    renderer.setSize(logoContainer.clientWidth, logoContainer.clientHeight);
+    logoContainer.appendChild(renderer.domElement);
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -98,101 +140,70 @@ function initThreeJS() {
     // Load 3D Model
     const loader = new THREE.GLTFLoader();
     loader.load('assets/logo.glb', function(gltf){
-        logo = gltf.scene;
-        logo.scale.set(2, 2, 2);
-        scene.add(logo);
+        model = gltf.scene;
+        model.scale.set(2, 2, 2);
+        scene.add(model);
         animate();
     }, undefined, function(error){
         console.error(error);
     });
 
-    // Responsive Renderer
+    // Responsive
     window.addEventListener('resize', () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
+        camera.aspect = logoContainer.clientWidth / logoContainer.clientHeight;
         camera.updateProjectionMatrix();
+        renderer.setSize(logoContainer.clientWidth, logoContainer.clientHeight);
     });
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    if (logo) {
-        logo.rotation.y += 0.005;
-        logo.rotation.x += 0.002;
+function animateThreeJS() {
+    requestAnimationFrame(animateThreeJS);
+    if (model) {
+        model.rotation.y += 0.005;
+        model.rotation.x += 0.002;
     }
     renderer.render(scene, camera);
 }
 
-initThreeJS();
+// Uncomment below to use Three.js instead of Lottie
+// initThreeJS();
+// animateThreeJS();
 
-// GSAP Animations
+// Scroll Animations with GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-// Fade-in Sections
-gsap.utils.toArray('section').forEach(section => {
-    gsap.from(section, {
-        scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power2.out'
-    });
-});
-
-// Navbar Background Change on Scroll
-gsap.to('.navbar', {
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+// Fade-in Animation for Social Buttons
+gsap.from(".social-button", {
     scrollTrigger: {
-        trigger: 'header',
-        start: 'bottom top',
-        toggleActions: 'play reverse play reverse'
-    }
+        trigger: ".social-media",
+        start: "top 80%",
+    },
+    y: 50,
+    opacity: 0,
+    stagger: 0.2,
+    duration: 1,
+    ease: "power2.out"
 });
 
-// Social Button Hover Animations with GSAP
-const socialButtons = document.querySelectorAll('.social-button');
-
+// Click Animation for Social Buttons
 socialButtons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        gsap.to(button, { scale: 1.1, duration: 0.3, ease: 'power1.out' });
-    });
-    button.addEventListener('mouseleave', () => {
-        gsap.to(button, { scale: 1, duration: 0.3, ease: 'power1.out' });
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        gsap.to(button, {
+            scale: 0.9,
+            duration: 0.2,
+            yoyo: true,
+            repeat: 1,
+            ease: "power1.inOut"
+        });
+        // Open link after animation
+        setTimeout(() => {
+            window.open(button.href, '_blank');
+        }, 400);
     });
 });
 
-// Testimonial Slider with GSAP
-const testimonials = document.querySelectorAll('.testimonial');
-let testimonialIndex = 0;
+// Optional: Add more interactive animations as needed
 
-function showTestimonial(index) {
-    gsap.to('.testimonial-slider', {
-        x: -index * (testimonials[0].clientWidth + 30),
-        duration: 1,
-        ease: 'power2.inOut'
-    });
-}
-
-setInterval(() => {
-    testimonialIndex = (testimonialIndex + 1) % testimonials.length;
-    showTestimonial(testimonialIndex);
-}, 7000);
-
-// Contact Form Submission (Placeholder)
-const contactForm = document.querySelector('.contact-form');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Implement form submission logic here (e.g., via EmailJS, Formspree, etc.)
-    gsap.from('.contact-form', { opacity: 0, y: -50, duration: 0.5 });
-    alert('Thank you for your message!');
-    contactForm.reset();
-});
-
-// Optional: Add More Interactive Elements as Needed
+// Analytics Integration Placeholder
+// Implement your preferred analytics here
