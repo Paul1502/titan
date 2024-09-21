@@ -1,76 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Titan Services</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- GSAP Animation Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
-  <!-- GSAP ScrollTrigger Plugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
-  <!-- Three.js Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-  <!-- Scripts -->
-  <script src="scripts.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN1fSLOu9YAmfCqVvmlgJONf6kAGq6iOPtd3VGtgllr9sNXHFeRMhtO8Qab/UcHG+9DVuw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="titan-logo-animation">
-      <!-- Replace with your Titan logo SVG or image -->
-      <img src="titan-logo.svg" alt="Titan Logo">
-    </div>
-  </div>
-
-  <!-- Animated Background -->
-  <canvas id="animated-background"></canvas>
-
-  <!-- Main Content -->
-  <div id="main-content" class="hidden">
+    <!-- Animated Pulsing Logo -->
     <header>
-      <h1>Titan Services</h1>
-      <p>Your Gateway to Our Community</p>
+        <div class="logo-container">
+            <h1 class="logo">Titan Hub</h1>
+        </div>
     </header>
 
-    <section class="links-section">
-      <!-- Discord Link Button -->
-      <a href="https://discord.gg/XgmY98jtFF" target="_blank" class="link-button" id="discord">
-        <!-- Discord Icon SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">
-          <!-- Replace the path below with the actual Discord SVG Path -->
-          <path d="M104.4,104.5c-5.7,0-10.3,5-10.3,11.2s4.6,11.2,10.3,11.2c5.7,0,10.3-5,10.3-11.2S110.1,104.5,104.4,104.5z M140.6,104.5
-            c-5.7,0-10.3,5-10.3,11.2s4.6,11.2,10.3,11.2c5.7,0,10.3-5,10.3-11.2S146.3,104.5,140.6,104.5z"/>
-          <!-- Add more SVG paths as needed for the complete Discord logo -->
-        </svg>
-        <span>Join Discord</span>
-      </a>
-
-      <!-- TikTok Link Button -->
-      <a href="https://www.tiktok.com/@xititan" target="_blank" class="link-button" id="tiktok">
-        <!-- TikTok Icon SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <!-- Replace the path below with the actual TikTok SVG Path -->
-          <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.306 3.438 9.8 8.205 11.385v-8.385h-2.475v-3h2.475v-2.475c0-2.45 1.433-3.813 3.725-3.813 1.082 0 2.213.194 2.213.194v2.45h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 3h-2.33v8.385c4.767-1.585 8.205-6.08 8.205-11.385 0-6.627-5.373-12-12-12z"/>
-          <!-- Add more SVG paths as needed for the complete TikTok logo -->
-        </svg>
-        <span>Follow on TikTok</span>
-      </a>
-
-      <!-- Telegram Link Button -->
-      <a href="https://t.me/+dM1kgpArxyM3MDE6" target="_blank" class="link-button" id="telegram">
-        <!-- Telegram Icon SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-          <!-- Replace the path below with the actual Telegram SVG Path -->
-          <path d="M120 0C53.73 0 0 53.73 0 120c0 66.27 53.73 120 120 120 66.27 0 120-53.73 120-120C240 53.73 186.27 0 120 0zm58.04 82.05L102.6 161.4c-2.15 3.03-6.19 3.43-8.56 0.93l-29.3-23.3c-0.97-0.78-0.96-1.72 0.19-2.55l21.4-16.4c2.04-1.56 3.36-3.67 3.36-6.03V78.67c0-3.17-2.58-5.75-5.75-5.75h0c-3.17 0-5.75 2.58-5.75 5.75v23.88l-13.76-12.45c-1.43-1.3-3.5-1.38-4.86-0.21l-21.6 16.4c-1.66 1.27-1.66 2.77 0 4.04l56.4 45.8c1.85 1.5 4.15 0.95 4.9-1.5l16.9-125.8c0.15-1.17-0.51-2.28-1.6-2.83l-55.8-25.5c-1.17-0.54-2.57 0.15-2.67 1.38L83.15 154.07l-24.27 11.12c-1.28 0.58-1.34 1.63-0.12 2.26l28.4 17.03c1.43 0.86 2.98 0.49 4.05-0.69l59.6-57.4c1.19-1.14 1.05-2.79-0.25-3.67z"/>
-          <!-- Add more SVG paths as needed for the complete Telegram logo -->
-        </svg>
-        <span>Join Telegram</span>
-      </a>
+    <!-- Social Media Buttons -->
+    <section class="social-media">
+        <a href="https://discord.com" target="_blank" class="social-button discord"><i class="fab fa-discord"></i> Discord</a>
+        <a href="https://telegram.org" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
+        <a href="https://tiktok.com" target="_blank" class="social-button tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+        <!-- Add more social media links as needed -->
     </section>
-  </div>
 
-  <!-- Cursor Trail Canvas -->
-  <canvas id="cursor-canvas"></canvas>
+    <!-- Featured Content -->
+    <section class="featured-content">
+        <h2>Featured</h2>
+        <div class="content-grid">
+            <div class="content-item">Feature 1</div>
+            <div class="content-item">Feature 2</div>
+            <div class="content-item">Feature 3</div>
+            <!-- Add more features as needed -->
+        </div>
+    </section>
+
+    <!-- Community Showcase -->
+    <section class="community-showcase">
+        <h2>Our Community</h2>
+        <div class="community-grid">
+            <div class="community-item">Member 1</div>
+            <div class="community-item">Member 2</div>
+            <div class="community-item">Member 3</div>
+            <!-- Add more community members as needed -->
+        </div>
+    </section>
+
+    <!-- User Testimonials -->
+    <section class="testimonials">
+        <h2>Testimonials</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial">"Titan Hub transformed the way I interact online!"</div>
+            <div class="testimonial">"An unparalleled platform with endless possibilities."</div>
+            <div class="testimonial">"The community is vibrant and supportive."</div>
+            <!-- Add more testimonials as needed -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Titan Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
