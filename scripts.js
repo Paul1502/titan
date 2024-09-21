@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle Loading Screen Fade Out
   window.addEventListener('load', () => {
-    gsap.to(loadingScreen, { opacity: 0, duration: 1, ease: 'power2.out', onComplete: () => {
+    gsap.to(loadingScreen, { opacity: 0, duration: 1.5, ease: 'power2.out', onComplete: () => {
       loadingScreen.style.display = 'none';
       mainContent.classList.remove('hidden');
       animateBackground(); // Start background animation after loading
+      startButtonAnimations(); // Initiate button animations
     }});
   });
 
@@ -37,23 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.position.z = 5;
 
     // Create Particles
-    const particlesCount = 500;
+    const particlesCount = 800;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      positions[i * 3] = (Math.random() - 0.5) * 50;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
       color: 0x7289da,
-      size: 0.1,
+      size: 0.3,
       transparent: true,
-      opacity: 0.7
+      opacity: 0.7,
+      depthWrite: false
     });
 
     const particles = new THREE.Points(geometry, material);
@@ -81,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cursorCanvas = document.getElementById('cursor-canvas');
   const ctxCursor = cursorCanvas.getContext('2d');
   let cursor = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  const particles = [];
-  const maxParticles = 150;
+  let cursorTrail = [];
+  const maxTrail = 150;
 
   // Resize Canvas
   function resizeCursorCanvas() {
@@ -96,52 +98,28 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('mousemove', (e) => {
     cursor.x = e.clientX;
     cursor.y = e.clientY;
-    particles.push(new CursorParticle(e.clientX, e.clientY));
-    if (particles.length > maxParticles) particles.shift();
+    cursorTrail.push({ x: e.clientX, y: e.clientY });
+    if (cursorTrail.length > maxTrail) cursorTrail.shift();
   });
 
-  // Cursor Particle Class
-  class CursorParticle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 3 + 2;
-      this.speedX = Math.random() * 0.5 - 0.25;
-      this.speedY = Math.random() * 0.5 - 0.25;
-      this.alpha = 1;
+  // Cursor Trail Animation
+  function animateCursorTrail() {
+    ctxCursor.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
+    ctxCursor.beginPath();
+    for (let i = 0; i < cursorTrail.length; i++) {
+      const point = cursorTrail[i];
+      ctxCursor.lineTo(point.x, point.y);
     }
-
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.alpha -= 0.015;
-    }
-
-    draw() {
-      ctxCursor.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-      ctxCursor.beginPath();
-      ctxCursor.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctxCursor.fill();
-    }
+    ctxCursor.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctxCursor.lineWidth = 2;
+    ctxCursor.stroke();
+    requestAnimationFrame(animateCursorTrail);
   }
-
-  // Animation Loop for Cursor Trail
-  function animateCursor() {
-    ctxCursor.fillStyle = 'rgba(14, 14, 14, 0.1)';
-    ctxCursor.fillRect(0, 0, cursorCanvas.width, cursorCanvas.height);
-    particles.forEach((p, index) => {
-      p.update();
-      p.draw();
-      if (p.alpha <= 0) {
-        particles.splice(index, 1);
-      }
-    });
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
+  animateCursorTrail();
 
   // Change Cursor Color on Hover
   const linkButtons = document.querySelectorAll('.link-button');
+  let cursorColor = 'rgba(255, 255, 255, 0.8)';
 
   linkButtons.forEach(button => {
     button.addEventListener('mouseenter', () => {
@@ -179,40 +157,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initialize Cursor Color
-  let cursorColor = 'rgba(255, 255, 255, 0.8)';
+  let currentCursorColor = 'rgba(255, 255, 255, 0.8)';
 
-  // Modify Cursor Particle Class to Use Dynamic Color
-  class CursorParticle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 3 + 2;
-      this.speedX = Math.random() * 0.5 - 0.25;
-      this.speedY = Math.random() * 0.5 - 0.25;
-      this.alpha = 1;
-      this.color = cursorColor;
-    }
-
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.alpha -= 0.015;
-    }
-
-    draw() {
-      ctxCursor.fillStyle = `rgba(${hexToRgb(this.color)}, ${this.alpha})`;
-      ctxCursor.beginPath();
-      ctxCursor.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctxCursor.fill();
-    }
+  // Draw Custom Cursor
+  function drawCustomCursor() {
+    ctxCursor.beginPath();
+    ctxCursor.arc(cursor.x, cursor.y, 10, 0, Math.PI * 2);
+    ctxCursor.fillStyle = cursorColor;
+    ctxCursor.fill();
+    requestAnimationFrame(drawCustomCursor);
   }
-
-  // Function to Convert RGBA to RGB for Particle Colors
-  function hexToRgb(hex) {
-    // Remove the 'rgba' part
-    let parts = hex.substring(hex.indexOf('(')+1, hex.indexOf(')')).split(',');
-    return `${parseInt(parts[0])}, ${parseInt(parts[1])}, ${parseInt(parts[2])}`;
-  }
+  drawCustomCursor();
 
   // Create Particle Burst Effect on Click
   function createParticleBurst(element) {
@@ -225,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       particle.classList.add('particle');
       particle.style.left = `${burstX}px`;
       particle.style.top = `${burstY}px`;
-      particle.style.background = getRandomColor();
+      particle.style.background = getBurstColor(element.id);
       particle.style.width = '8px';
       particle.style.height = '8px';
       document.body.appendChild(particle);
@@ -242,35 +197,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Generate Random Color for Burst Particles Based on Button
-  function getRandomColor() {
+  // Generate Burst Color Based on Button ID
+  function getBurstColor(id) {
     const colors = {
       discord: '#7289da',
       tiktok: '#69C9D0',
       telegram: '#0088cc'
     };
-    const activeButton = document.querySelector('.link-button:hover');
-    if (activeButton) {
-      return colors[activeButton.id] || '#ffffff';
-    }
-    return '#ffffff';
+    return colors[id] || '#ffffff';
   }
 
   // GSAP Scroll Animations for Link Buttons
-  gsap.from(".link-button", {
-    scrollTrigger: {
-      trigger: ".links-section",
-      start: "top 80%",
-      end: "bottom 20%",
-      toggleActions: "play none none reverse"
-    },
-    opacity: 0,
-    y: 50,
-    stagger: 0.3,
-    duration: 1.2,
-    ease: "power3.out",
-    delay: 0.5
-  });
+  function startButtonAnimations() {
+    gsap.from(".link-button", {
+      scrollTrigger: {
+        trigger: ".links-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse"
+      },
+      opacity: 0,
+      y: 50,
+      stagger: 0.3,
+      duration: 1.5,
+      ease: "power3.out",
+      delay: 0.5
+    });
+
+    gsap.to(".link-button", {
+      rotation: 360,
+      repeat: -1,
+      duration: 60,
+      ease: "linear",
+      transformOrigin: "center center"
+    });
+  }
 
   // Parallax Effect on Mouse Move
   const mainContentSection = document.getElementById('main-content');
