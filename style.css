@@ -1,316 +1,222 @@
-/* Reset and Base Styles */
+/* General Styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body, html {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  cursor: none; /* Hide default cursor */
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-  position: relative;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: backgroundPulse 10s infinite alternate;
 }
 
-/* Loading Screen */
-#loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0e0e0e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1001;
-  transition: opacity 1s ease, visibility 1s ease;
+/* Background Pulse Animation */
+@keyframes backgroundPulse {
+    0% {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    }
+    100% {
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    }
 }
 
-.titan-logo-animation img {
-  width: 180px;
-  height: 180px;
-  animation: spin 2s linear infinite;
-  filter: drop-shadow(0 0 20px #ffffff);
+/* Logo Styles */
+.logo-container {
+    margin-top: 50px;
+    animation: pulse 2s infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.logo {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(90deg, #00c6ff, #0072ff, #00ff85);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 1.5s ease-in-out infinite;
 }
 
-/* Main Content */
-.hidden {
-  display: none;
-}
-
-#main-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  perspective: 1000px;
-  z-index: 2;
-}
-
-/* Header */
-header {
-  text-align: center;
-  padding: 100px 20px;
-  color: #ffffff;
-  font-size: 4rem;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 0 15px rgba(255,255,255,0.7);
-}
-
-header p {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  color: #b3b3b3;
-  text-transform: none;
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-
-/* Links Section */
-.links-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  padding: 60px 20px;
-  position: relative;
-  z-index: 2;
-}
-
-/* Link Buttons */
-.link-button {
-  width: 220px;
-  height: 220px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 3px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-.link-button svg {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 20px;
-  transition: transform 0.3s, filter 0.3s;
-  fill: #ffffff; /* Default icon color */
-}
-
-.link-button span {
-  font-size: 1.4rem;
-  text-align: center;
-  pointer-events: none;
-  text-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-
-/* Hover Effects for Link Buttons */
-#discord:hover svg {
-  filter: drop-shadow(0 0 30px #7289da) drop-shadow(0 0 40px #7289da);
-  transform: rotate(10deg);
-}
-
-#tiktok:hover svg {
-  animation: pulseNeon 1s infinite;
-}
-
-@keyframes pulseNeon {
-  0%, 100% { filter: drop-shadow(0 0 20px #69C9D0); }
-  50% { filter: drop-shadow(0 0 40px #69C9D0); }
-}
-
-#telegram:hover svg {
-  filter: drop-shadow(0 0 30px #0088cc) drop-shadow(0 0 40px #0088cc);
-}
-
-/* Link Button Hover State */
-.link-button:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
-}
-
-/* Before and After Pseudo-Elements for Additional Effects */
-.link-button::before {
-  content: '';
-  position: absolute;
-  top: -150%;
-  left: -150%;
-  width: 400%;
-  height: 400%;
-  background: rgba(255, 255, 255, 0.05);
-  transform: rotate(45deg);
-  animation: pulse 8s infinite;
-}
-
+/* Logo Pulse Animation */
 @keyframes pulse {
-  0%, 100% { opacity: 0.05; }
-  50% { opacity: 0.15; }
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
-.link-button::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: all 0.4s ease;
-}
-
-.link-button:hover::after {
-  width: 300%;
-  height: 300%;
-  opacity: 1;
-}
-
-/* Particle Burst on Click */
-.particle {
-  background: #ffffff;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 1002;
-}
-
-/* Custom Cursor Canvas */
-#cursor-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 1003;
-}
-
-/* Animated Background Canvas */
-#animated-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Glowing Lines Background (Optional) */
-.glowing-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('circuit-pattern.svg') repeat;
-  mix-blend-mode: overlay;
-  opacity: 0.2;
-  animation: glow 10s infinite alternate;
-}
-
+/* Logo Glow Animation */
 @keyframes glow {
-  from { filter: brightness(0.8); }
-  to { filter: brightness(1.2); }
+    0%, 100% {
+        text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+    }
+    50% {
+        text-shadow: 0 0 20px #00ff85, 0 0 30px #00ff85, 0 0 40px #00ff85;
+    }
+}
+
+/* Social Media Buttons */
+.social-media {
+    margin: 40px 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.social-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.social-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #00ff85;
+    box-shadow: 0 0 20px #00ff85, 0 0 40px #00ff85;
+}
+
+.social-button i {
+    font-size: 1.5rem;
+}
+
+/* Featured Content */
+.featured-content, .community-showcase, .testimonials {
+    width: 80%;
+    max-width: 1200px;
+    margin: 60px 0;
+    text-align: center;
+}
+
+.featured-content h2, .community-showcase h2, .testimonials h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #00c6ff;
+    position: relative;
+}
+
+.featured-content h2::after, .community-showcase h2::after, .testimonials h2::after {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: #00ff85;
+    margin: 10px auto 0;
+    display: block;
+    border-radius: 2px;
+}
+
+.content-grid, .community-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.content-item, .community-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    width: calc(33% - 40px);
+    min-width: 200px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.content-item:hover, .community-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.testimonial-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 20px;
+}
+
+.testimonial {
+    flex: 0 0 300px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.testimonial:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    padding: 20px 0;
+    background: #1a1a1a;
+    text-align: center;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-  header {
-    font-size: 3rem;
-    padding: 80px 20px;
-  }
-
-  .link-button {
-    width: 180px;
-    height: 180px;
-  }
-
-  .link-button svg {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 15px;
-  }
-
-  .link-button span {
-    font-size: 1.2rem;
-  }
-
-  .links-section {
-    padding: 50px 10px;
-    gap: 40px;
-  }
-}
-
 @media (max-width: 768px) {
-  header {
-    font-size: 2.5rem;
-    padding: 60px 20px;
-  }
-
-  .link-button {
-    width: 160px;
-    height: 160px;
-  }
-
-  .link-button svg {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 12px;
-  }
-
-  .link-button span {
-    font-size: 1.1rem;
-  }
-
-  .links-section {
-    padding: 40px 10px;
-    gap: 35px;
-  }
+    .content-item, .community-item {
+        width: calc(50% - 40px);
+    }
 }
 
 @media (max-width: 480px) {
-  header {
-    font-size: 2rem;
-    padding: 40px 10px;
-  }
+    .logo {
+        font-size: 3rem;
+    }
 
-  .link-button {
-    width: 140px;
-    height: 140px;
-  }
+    .social-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
 
-  .link-button svg {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-  }
+    .content-item, .community-item {
+        width: 100%;
+    }
 
-  .link-button span {
-    font-size: 1rem;
-  }
-
-  .links-section {
-    padding: 30px 5px;
-    gap: 30px;
-  }
+    .testimonial {
+        flex: 0 0 80%;
+    }
 }
