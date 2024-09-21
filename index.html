@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titan Hub</title>
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <!-- Font Awesome for Social Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN1fSLOu9YAmfCqVvmlgJONf6kAGq6iOPtd3VGtgllr9sNXHFeRMhtO8Qab/UcHG+9DVuw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pXYzPIj+G7G+VtWV0vR8RObmmgqd9wCqHf3dS4k74DFfXvXb1+DwFkU0eA2PpXrT4Fe4V1F1+YVnQvNXn1GUhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-OZ4YZ/EVQkwbXxVu8iMQjZBQk41b+vPr5W8lzL3stjm66oBwPZgnCwq++gELqIxHQlV0gFe0+gQteAlGgVuh0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- ScrollTrigger Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js" integrity="sha512-f4NeHtLbrBkmqjFStlwEPeMWcU6bq1tcQ5iMjH8dq1WWHE2cKsrUF95EVBYZs0PwgjswYmv+rUkWTdTgIM+l4A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Three.js for 3D Logo -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" integrity="sha512-2iw8DgxSOPF2D4PObmPZtIhMSmL7/4Koq0IZFs8LSqix9DXI0L6jQR2OfXXQ+kNk6o6XecjizWtDxxeQVb+HfQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-5SW8WkVIZw9O3kHeE34A3LjSxXRbiHoA3ZqvJjqJo8Y9ULH7I3Fy1Fwa+svkS3U3cC0RczURkZpqfQdNaRjC5A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- GSAP ScrollTrigger Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-FHoqVhwXSe/K9dP1jJXroRhAfMItXKjLFvMqIJTPayghqIhgDctnNV0wqVQjgIDxEuR0R0GntT+ECZ9LKX3R0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Three.js for 3D Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" integrity="sha512-7o05IOxJvMkUw/r6wMBg1mKflpJcZ32DFN5oZ7C/HbjuuwlrObItXmj3kyqE/1R3+q0QllQ6MJRFPXHBknQk9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- GLTFLoader for Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.min.js" integrity="sha512-/v5nDAUBoU2Skqsu7Zl22IphWAsQWqqGjCeicCdttS4k0+JRKcOWGzOM/Kwu+wffNQEuqMvGDCj7UeVlaKRY2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.min.js" integrity="sha512-jLADyvHqE+fIw4rKMp3QWmqV+/3mPXvjp60QzOX77yHK7bRhPMiH1S5YZcCQJiRVbYnDNb6rXBRfq1ziCgrceA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Lottie for Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js" integrity="sha512-Cu0FY0oJx3XOBZpLh6oGR9aF6gEJ6ZJgxfLxVYjKkDXTf+E8BkplTZvITbhhUg3rVcmJGUrHNXlFvAG+v6E4BQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Particles.js for Dynamic Background -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
@@ -22,126 +25,30 @@
     <!-- Particle Background -->
     <div id="particles-js"></div>
 
-    <!-- Animated 3D Logo -->
+    <!-- Header with Animated Logo -->
     <header>
         <div id="logo-container"></div>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#featured">Featured</a></li>
-            <li><a href="#community">Community</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
     <!-- Social Media Buttons -->
     <section class="social-media">
-        <a href="https://discord.com" target="_blank" class="social-button discord"><i class="fab fa-discord"></i> Discord</a>
-        <a href="https://telegram.org" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
-        <a href="https://tiktok.com" target="_blank" class="social-button tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
-        <a href="https://twitter.com" target="_blank" class="social-button twitter"><i class="fab fa-twitter"></i> Twitter</a>
-        <a href="https://instagram.com" target="_blank" class="social-button instagram"><i class="fab fa-instagram"></i> Instagram</a>
-    </section>
-
-    <!-- Featured Content -->
-    <section id="featured" class="featured-content">
-        <h2>Featured</h2>
-        <div class="content-grid">
-            <div class="content-item">
-                <i class="fas fa-rocket fa-3x"></i>
-                <h3>Innovation</h3>
-                <p>Leading the way with cutting-edge technology and innovative solutions.</p>
-            </div>
-            <div class="content-item">
-                <i class="fas fa-users fa-3x"></i>
-                <h3>Community</h3>
-                <p>Building a vibrant and supportive community of like-minded individuals.</p>
-            </div>
-            <div class="content-item">
-                <i class="fas fa-shield-alt fa-3x"></i>
-                <h3>Security</h3>
-                <p>Ensuring top-notch security and privacy for all our users.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Community Showcase -->
-    <section id="community" class="community-showcase">
-        <h2>Our Community</h2>
-        <div class="community-grid">
-            <div class="community-item">
-                <img src="https://via.placeholder.com/150" alt="Member 1">
-                <h4>Member One</h4>
-                <p>Active contributor and community leader.</p>
-            </div>
-            <div class="community-item">
-                <img src="https://via.placeholder.com/150" alt="Member 2">
-                <h4>Member Two</h4>
-                <p>Expert in technology and innovation.</p>
-            </div>
-            <div class="community-item">
-                <img src="https://via.placeholder.com/150" alt="Member 3">
-                <h4>Member Three</h4>
-                <p>Passionate about building connections.</p>
-            </div>
-            <!-- Add more community members as needed -->
-        </div>
-    </section>
-
-    <!-- User Testimonials -->
-    <section id="testimonials" class="testimonials">
-        <h2>Testimonials</h2>
-        <div class="testimonial-slider">
-            <div class="testimonial">
-                <p>"Titan Hub transformed the way I interact online! The community is unparalleled."</p>
-                <h4>- User One</h4>
-            </div>
-            <div class="testimonial">
-                <p>"An electrifying platform with endless possibilities. Truly a game-changer."</p>
-                <h4>- User Two</h4>
-            </div>
-            <div class="testimonial">
-                <p>"The seamless integration of technology and community makes Titan Hub unique."</p>
-                <h4>- User Three</h4>
-            </div>
-            <!-- Add more testimonials as needed -->
-        </div>
-    </section>
-
-    <!-- Featured Content Animation -->
-    <section id="animation" class="animation-section">
-        <h2>Experience the Power</h2>
-        <div class="animation-container">
-            <!-- Add any additional animations or interactive elements here -->
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <h2>Contact Us</h2>
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit" class="submit-button">Send Message</button>
-        </form>
+        <a href="https://discord.com/invite/YOUR_DISCORD_INVITE" target="_blank" class="social-button discord">
+            <i class="fab fa-discord"></i> Discord
+        </a>
+        <a href="https://t.me/YOUR_TELEGRAM_GROUP" target="_blank" class="social-button telegram">
+            <i class="fab fa-telegram-plane"></i> Telegram
+        </a>
+        <a href="https://www.tiktok.com/@YOUR_TIKTOK_HANDLE" target="_blank" class="social-button tiktok">
+            <i class="fab fa-tiktok"></i> TikTok
+        </a>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Titan Hub. All rights reserved.</p>
-        <div class="footer-social">
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-            <!-- Add more social links as needed -->
-        </div>
     </footer>
 
-    <!-- Script Files -->
+    <!-- Script File -->
     <script src="script.js"></script>
 </body>
 </html>
